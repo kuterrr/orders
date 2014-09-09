@@ -92,7 +92,7 @@ function db_query_replase($sql,$repl_arr=null)
  */
 function db_query ($sql, $table, $repl_arr=null)
 {
-    $handler = db_search($table);    
+    $handler = db_search($table);       
     $sql = db_query_replase($sql, $repl_arr);    
     if(!$res = mysql_query($sql,$handler))
     {
@@ -140,7 +140,7 @@ function db_query_affected_rows($sql, $table, $repl_arr=null)
  * @return array
  */
 function db_query_array_list($sql, $table, $repl_arr=null)
-{    
+{        
     $handler = db_search($table);
     if(!$res = db_query($sql, $table, $repl_arr))	
         return false;
@@ -161,8 +161,8 @@ function db_query_array_list($sql, $table, $repl_arr=null)
  * @return array
  */
 function db_query_one_line($sql, $table, $repl_arr=null)
-{
-    $array = db_query_array_list($sql, $table, $repl_arr=null);
+{   
+    $array = db_query_array_list($sql, $table, $repl_arr);
     return $array[0];
 }
 /**
