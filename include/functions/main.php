@@ -5,19 +5,16 @@ function v_dump($ar)
     var_dump($ar);
     echo '</pre>';    
 }
+function getFunctionsMessage($str) {
+    include_once($_SERVER['DOCUMENT_ROOT'].SITE_LANG_PATH.'functions.php');
+    return $lang[$str];
+}
 include_once($_SERVER['DOCUMENT_ROOT'].'/include/functions/config.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/include/functions/database.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/include/functions/users.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/include/functions/accounts.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/include/functions/orders.php');
 
-$res = db_query_array_list("SELECT * FROM users", 'users', 1);
+$res = userLogin("admin","12345",true);
 v_dump($res);
-/**
- * comment
- *
- * @param $a
- * @return string
- */
-
 ?>

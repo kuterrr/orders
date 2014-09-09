@@ -11,12 +11,12 @@ function db_connect($db)
     {
         $db_conn[$db]['handler'] = mysql_connect($db_conn[$db]['host'], $db_conn[$db]['user'], $db_conn[$db]['pass']);       
         if (!$db_conn[$db]['handler']) {
-            trigger_error(mysql_errno($db_conn[$db]['handler']).' '.mysql_error($db_conn[$db]['handler']), ERROR);
+            trigger_error(mysql_errno($db_conn[$db]['handler']).' '.mysql_error($db_conn[$db]['handler']));
             die();
         }
         if(!mysql_select_db($db_conn[$db]['dbname'],$db_conn[$db]['handler'])) 
         {
-            trigger_error(mysql_errno($db_conn[$db]['handler']).' '.mysql_error($db_conn[$db]['handler']), ERROR);
+            trigger_error(mysql_errno($db_conn[$db]['handler']).' '.mysql_error($db_conn[$db]['handler']));
             die();
         }
         else 
@@ -35,12 +35,13 @@ function db_connect($db)
  */
 function db_search($table)
 {
+    global $db_conn, $db_tables;
     if (count($db_conn)>1 && $table)
     {
-        $db = array_search($table, $db_tables);
+        $db = array_search($table, $db_tables);        
         if ($db === null)
             return false;
-        $handler = db_connect($db);
+        $handler = db_connect($db);        
     }
     else 
     {            
@@ -91,11 +92,11 @@ function db_query_replase($sql,$repl_arr=null)
  */
 function db_query ($sql, $table, $repl_arr=null)
 {
-    $handler = db_search($table);
+    $handler = db_search($table);    
     $sql = db_query_replase($sql, $repl_arr);    
     if(!$res = mysql_query($sql,$handler))
     {
-        trigger_error(mysql_errno($handler).' '.mysql_error($handler), ERROR);            
+        trigger_error(mysql_errno($handler).' '.mysql_error($handler));            
         return false;
     }
     return $res;
@@ -150,5 +151,34 @@ function db_query_array_list($sql, $table, $repl_arr=null)
     }
 
     return $array;
+}
+/**
+ * Получаем первую строку ответа, обертка db_query_array_list
+ *
+ * @param string $sql
+ * @param string $table
+ * @param unknown_type $repl_arr
+ * @return array
+ */
+function db_query_one_line($sql, $table, $repl_arr=null)
+{
+    $array = db_query_array_list($sql, $table, $repl_arr=null);
+    return $array[0];
+}
+/**
+ * Возвращает первое знечение полученое запросом
+ *
+ * @param string $sql
+ * @param string $table
+ * @param unknown_type $repl_arr
+ * @return value
+ */
+function db_query_get_value($sql, $table, $repl_arr=null)
+{
+    if(!$res=db_query($sql,$table, $repl_arr))    
+        return false;    
+    if(mysql_num_rows($res) & mysql_num_fields($res))   
+        return mysql_result($res, 0, 0);    
+    return false;    
 }
 ?>
