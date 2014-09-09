@@ -21,7 +21,7 @@ function userGetFullName($id = null)
     {
         $id = userGetId();
     }    
-    return db_query_one_line('SELECT * FROM users WHERE id=$', 'users', (int)$id);
+    return db_query_one_line('SELECT CONCAT(name," ",lastname) FROM users WHERE id=$', 'users', (int)$id);
     return false;
 }
 /**

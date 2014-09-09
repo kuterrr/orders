@@ -47,6 +47,7 @@ h1, h2, h3, h4 {
 .container .title {
     font-size:24px;    
     font-weight: 600;
+    color: #428bca;
 }
 .container .text-muted {
     margin: 20px 0;
@@ -71,6 +72,9 @@ h1, h2, h3, h4 {
 .container .nav b {
     font-size: 18px;
     font-weight: 300;
+}
+.container .auth_form {
+    width:400px;
 }
 .input {
     display: inline-block;

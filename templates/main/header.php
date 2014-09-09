@@ -14,6 +14,8 @@
                     <div class="title">Orders</div>
                 </div>
                 <div class="right">
-                    Иванов Иван <b>[20 000 руб.]</b><span class="divider">|</span> <a href="#" data-toggle="modal" data-target="#modal">Вход</a>
+                    <?if (isLogin()):?>
+                    <?=userGetFullName()?> <b>[20 000 руб.]</b><span class="divider">|</span> <a href="/?logout=yes">Выход</a>
+                    <?endif;?>                    
                 </div>
             </div>   
