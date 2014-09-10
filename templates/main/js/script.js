@@ -9,8 +9,27 @@ $(function(){
             if (!$("body").hasClass("modal-open"))
                 $("body").addClass("modal-open");
             if ($(".overflow").hasClass("hidden"))
-                $(".overflow").removeClass("hidden");        
+                $(".overflow").removeClass("hidden");   
+            
+            if ($(this).attr("href"))
+            {
+                var modal = $(this).data("target");
+                $.ajax({
+                    url:$(this).attr("href"),
+                    dataType:'html',     
+                    type : 'post',
+                }).done(function(data){    
+                    $(modal+" .modal-content").html(data);                   
+                })
+            }
         }
+    });
+    $(document).on("submit","form",function(){
+        console.log();
+        var params = $(this).serialize();
+        if($(this).find("[name=action]").val())
+            eval($(this).find("[name=action]").val()+"('"+params+"')");
+        return false;
     });
     $("body").on("click",".close",function(e) {
         e.preventDefault();
@@ -29,4 +48,35 @@ function close_modal() {
     $("body").removeClass("modal-open");        
     $(".overflow").addClass("hidden");
     $(".modal").hide();
+}
+
+function add_order(params)
+{
+    $.ajax({
+        url: "ajax/actions.php",
+        data : params,  
+        type : 'post',
+        beforeSend: function () {
+            // @todo: check fields
+        },
+        success : function (data) {                            
+            $("#modal .modal-content").html(data);
+            if (!data)
+            {
+                close_modal();
+                getUserOrders();
+            }
+        }
+    });
+    return false;
+}
+function getUserOrders()
+{
+    $.ajax({
+        url:"/ajax/get_user_orders.php",
+        dataType:'html',     
+        type : 'post',
+    }).done(function(data){    
+        $("#user_orders").html(data);                   
+    });
 }

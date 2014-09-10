@@ -92,7 +92,7 @@ function db_query_replase($sql,$repl_arr=null)
  */
 function db_query ($sql, $table, $repl_arr=null)
 {
-    $handler = db_search($table);       
+    $handler = db_search($table);  
     $sql = db_query_replase($sql, $repl_arr);    
     if(!$res = mysql_query($sql,$handler))
     {
@@ -113,7 +113,7 @@ function db_query ($sql, $table, $repl_arr=null)
 function db_query_insert($sql, $table, $repl_arr=null)
 {
     $handler = db_search($table);
-    db_query($sql, $repl_arr);
+    db_query($sql, $table, $repl_arr);
     return mysql_insert_id($handler);
 }
 /**

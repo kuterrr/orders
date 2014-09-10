@@ -173,7 +173,7 @@ function userAdd ($login, $pass, $pass2, $name, $group_id = 2)
     }
     if(count($return)==0)
     {
-        if($db->query_insert('INSERT INTO users (login,pass,name,group_id,cookie) VALUES($,$,$,$,$,$);', 'users', array($login,md5($pass),$name,$mail,$group_id,'')))        
+        if(db_query_insert('INSERT INTO users (login,pass,name,group_id,cookie) VALUES($,$,$,$,$,$);', 'users', array($login,md5($pass),$name,$mail,$group_id,'')))        
             return true;
         else
             return false;        
@@ -189,10 +189,9 @@ function userDelete($id)
 {    
     if($id != userGetId())
     {
-        if($db->get_value_query('SELECT count(*) FROM `users` WHERE `group_id` = \'1\'', 'users')>0)
+        if(db_query_get_value('SELECT count(*) FROM `users` WHERE `group_id` = \'1\'', 'users')>0)
         {
-            $db->query('DELETE FROM users WHERE id = $', 'users', $id);
-            $db->query('DELETE FROM user_prop_value WHERE user_id = $', 'users', $id);
+            db_query('DELETE FROM users WHERE id = $', 'users', $id);            
             return true;
         }        
         return getFunctionsMessage("LAST_ADMIN");

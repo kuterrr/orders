@@ -12,8 +12,7 @@ if ($_REQUEST["action"]=="auth"&&check_sessid())
 }
 ?>
 <h1>Авторизация</h1>
-<form class="auth_form" action="" method="post">
-    <input type="hidden" name="sessid" value="<?=$_COOKIE["PHPSESSID"]?>" />    
+<form class="auth_form" action="" method="post">       
     <input type="hidden" name="action" value="auth" />    
     <input type="text" name="login" class="input" placeholder="Логин"/>
     <input type="password" name="pass" class="input" placeholder="Пароль"/>

@@ -8,7 +8,6 @@
             <div class="container modal-small">
                 <div class="modal-header clear">                    
                     <button type="button" class="close">×</button>
-                    <h4></h4>
                 </div>
                 <div class="modal-content"></div>
             </div>

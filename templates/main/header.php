@@ -15,7 +15,11 @@
                 </div>
                 <div class="right">
                     <?if (isLogin()):?>
-                    <?=userGetFullName()?> <b>[20 000 руб.]</b><span class="divider">|</span> <a href="/?logout=yes">Выход</a>
+                    <?=userGetFullName()?> 
+                    <?if (userGetGroup()==3):?>
+                    <b>[20 000 руб.]</b>
+                    <?endif;?>
+                    <span class="divider">|</span> <a href="/?logout=yes">Выход</a>
                     <?endif;?>                    
                 </div>
             </div>   

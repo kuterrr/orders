@@ -76,6 +76,9 @@ h1, h2, h3, h4 {
 .container .auth_form {
     width:400px;
 }
+h2 {
+    line-height: 36px;
+}
 .input {
     display: inline-block;
     width: 100%;
@@ -194,6 +197,7 @@ h1, h2, h3, h4 {
     padding:10px 20px;
     border-radius:4px;        
     margin-top:30px;
+    position:relative;
 }
 .modal .modal-small {
     width:370px;
@@ -204,11 +208,11 @@ h1, h2, h3, h4 {
     padding-top:0px;
     margin:0px -20px;    
 }
-.modal .modal-header h4 {    
+/*.modal .modal-header h4 {    
     font-size:18px;
     line-height:28px;
     margin:0px;
-}
+}*/
 .modal .modal-header button{
     border:0px;
     padding:0px;
@@ -216,4 +220,11 @@ h1, h2, h3, h4 {
 }
 .modal .modal-content {    
     padding: 10px 0px;
+}
+.modal .modal-content  h4 {    
+    font-size:18px;
+    line-height:28px;
+    margin:0px;
+    position:absolute;
+    top:8px;
 }

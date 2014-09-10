@@ -1,8 +1,10 @@
-<?require($_SERVER["DOCUMENT_ROOT"]."/include/header.php");?>
-<a href='/ajax/addOrder.php' class="btn btn-primary right" data-toggle="modal" data-target="#modal"><?=getMessage("ADD_ORDER")?></a>   
-<h2><?=getMessage("YOUR_ORDERS")?></h2>
-<div id="user_orders">
+<?require($_SERVER["DOCUMENT_ROOT"]."/include/prolog.php");?>
 <?
+if (userGetGroup()!=2 || !check_sessid())
+{
+    echo getMessage("WRONG_USER");    
+    exit;
+}
 $orders = orderListByUserID(userGetId());
 if (is_array($orders)&&count($orders)>0):?>
     <div class="orders">
@@ -20,5 +22,3 @@ if (is_array($orders)&&count($orders)>0):?>
 <?else:?>
     <p class="text-muted"><?=getMessage("NO_USER_ORDERS")?></p>
 <?endif;?>
-</div>
-<?require($_SERVER["DOCUMENT_ROOT"]."/include/footer.php");?>
