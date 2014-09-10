@@ -14,6 +14,10 @@ function getCurPage()
 {
     return $_SERVER["SCRIPT_NAME"];
 }
+function LocalRedirect($url)
+{
+	header('Location: http://'.$_SERVER['HTTP_HOST'].$url);
+}
 function check_sessid() 
 {
     if (session_id() == $_REQUEST["sessid"])

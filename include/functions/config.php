@@ -29,4 +29,3 @@ $db_tables = Array();
 $db_tables[0] = "accounts,orders";
 $db_tables[1] = "users";
 ?>
-

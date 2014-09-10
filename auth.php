@@ -3,8 +3,7 @@ if ($_REQUEST["action"]=="auth"&&check_sessid())
 {    
     if (userLogin($_REQUEST["login"], $_REQUEST["pass"]))
     {        
-        v_dump($_SESSION);
-        header('Location: /auth.php');
+        LocalRedirect('/auth.php');
     }
     else 
     {
