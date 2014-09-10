@@ -24,6 +24,22 @@ $(function(){
             }
         }
     });
+    //исполнитель нажал выполнить
+    $("body").on("click",".execute",function(e){
+        e.preventDefault();
+        e.stopPropagation();         
+        var id = $(this).data("id");
+        $.ajax({
+            url: "/ajax/actions.php",
+            data: 'id='+id+"&action=execute",
+            dataType:'html',     
+            type : 'post',
+        }).done(function(data){    
+            $("#executor_account").html(data);
+            $("#order"+id).remove();
+        })
+    });
+    
     $(document).on("submit","form",function(){
         console.log();
         var params = $(this).serialize();

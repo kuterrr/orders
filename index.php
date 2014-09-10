@@ -1,4 +1,11 @@
 <?require($_SERVER["DOCUMENT_ROOT"]."/include/header.php");?>
+<?
+if (userGetGroup()!=2 || !check_sessid())
+{
+    echo getMessage("WRONG_USER");    
+    exit;
+}
+?>
 <a href='/ajax/addOrder.php' class="btn btn-primary right" data-toggle="modal" data-target="#modal"><?=getMessage("ADD_ORDER")?></a>   
 <h2><?=getMessage("YOUR_ORDERS")?></h2>
 <div id="user_orders">

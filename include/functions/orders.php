@@ -30,7 +30,7 @@ function orderAdd($ar)
  *
  * @param int $id - номер заказа
  * @param int $executor_id
- * @return int
+ * @return array - заказ
  */
 function orderAddExecuter($id, $executor_id)
 {  
@@ -44,8 +44,10 @@ function orderAddExecuter($id, $executor_id)
     }
     if(count($return)==0)
     {
-        if (db_query('UPDATE orders SET executor_id=$, status = 1 WHERE id = $', 'orders', array($executor_id, $id))) 
-            return true;   
+        if (db_query('UPDATE orders SET executor_id=$, status = 1 WHERE id = $', 'orders', array($executor_id, $id)))
+        
+            return db_query_one_line("SELECT * FROM orders WHERE id=$","orders",$id);
+                   
         return false;
     }
     return $return;
@@ -96,16 +98,11 @@ function orderListByUserID($user_id)
  * @param int $user_id
  * @return array
  */
-function orderListByExecutorID($user_id)
+function orderList()
 {  
-    if (!$user_id)
-    {
-        $return[] = getFunctionsMessage('O_WRONG_EXECUTOR');
-    }
-    
     if(count($return)==0)
     {
-        return $db->get_array_list('SELECT id, user_id, executor_id, name, price, date_created, timestamp FROM orders WHERE executor_id=$', 'orders', $user_id);                 
+        return db_query_array_list('SELECT id, user_id, executor_id, name, price, date_created, timestamp FROM orders WHERE status=0', 'orders');                 
     }
     return $return;
 }

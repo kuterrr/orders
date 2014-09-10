@@ -1,4 +1,5 @@
 <?
+define("COMISSION","10"); //Размер комиссии в процентах
 define("SITE_TEMPLATE","main");
 define("SITE_TEMPLATE_PATH","/templates/".SITE_TEMPLATE."/");
 define("SITE_LANG","ru");

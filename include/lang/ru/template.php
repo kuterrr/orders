@@ -3,6 +3,7 @@ $lang = Array();
 //users
 $lang["WRONG_USER"] = "Недостаточно прав доступа.";
 
+$lang["NO_EXECUTOR_ORDERS"] = 'Нет заказов для выполнения';
 $lang["NO_USER_ORDERS"] = 'Вы еще не добавляли заказы.';
 $lang["ORDER_NAME"] = 'Название';
 $lang["ORDER_PRICE"] = 'Стоимость';

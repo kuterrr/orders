@@ -17,7 +17,7 @@
                     <?if (isLogin()):?>
                     <?=userGetFullName()?> 
                     <?if (userGetGroup()==3):?>
-                    <b>[20 000 руб.]</b>
+                        <b>[<span id="executor_account"><?=accountSum(userGetId())?></span> руб.]</b>
                     <?endif;?>
                     <span class="divider">|</span> <a href="/?logout=yes">Выход</a>
                     <?endif;?>                    
