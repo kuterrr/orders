@@ -32,12 +32,21 @@ function userGetFullName($id = null)
  */
 function userGetGroup($id = null)
 {
-    if($id === null)
+    if (!$_SESSION["UserGroup"])
     {
-        $id = userGetId();
-    }       
-    return db_query_get_value('SELECT group_id FROM users WHERE id=$', 'users', $id);        
-    return false;
+        if($id === null)
+        {
+            $id = userGetId();
+        }           
+        $group = db_query_get_value('SELECT group_id FROM users WHERE id=$', 'users', $id);                
+        if ($group)
+        {
+            $_SESSION["UserGroup"] = $group;
+        }
+        else
+            return false;
+    }    
+    return $_SESSION["UserGroup"];
 }
 /**
  * Проверка, залогинен ли пользователь
@@ -136,6 +145,7 @@ function userClearCookie()
 function userLogout()
 {
     unset($_SESSION['UsrId']);
+    unset($_SESSION["UserGroup"]);
     userClearCookie();
 }	
 /**
@@ -149,13 +159,13 @@ function userLogout()
  * 
  * @return Массив ошибок или true при успешном добавлении
  */
-function userAdd ($login, $pass, $pass2, $name, $group_id = 2)
+function userAdd ($login, $pass, $name, $group_id = 2)
 {
     $return=array();
     if(userGetIdByLogin($login)){
         $return[] = getFunctionsMessage('EX_LOGIN');
     }
-    if(!ereg('^([a-zA-Z0-9_-]{3,})$',$login))
+    if(!preg_match ('/([a-zA-Z0-9_-])$/',$login))
     {
         $return[] = getFunctionsMessage('WRONG_LOGIN');
     }
@@ -163,17 +173,13 @@ function userAdd ($login, $pass, $pass2, $name, $group_id = 2)
     {
         $return[] = getFunctionsMessage('WRONG_PASS');
     }
-    if($pass != $pass2)
-    {
-        $return[] = getFunctionsMessage('WRONG_2PASS');
-    }
     if(htmlspecialchars($name)!=$name || $name=='')
     {
         $return[] = getFunctionsMessage('WRONG_NAME');
     }
     if(count($return)==0)
     {
-        if(db_query_insert('INSERT INTO users (login,pass,name,group_id,cookie) VALUES($,$,$,$,$,$);', 'users', array($login,md5($pass),$name,$mail,$group_id,'')))        
+        if(db_query_insert('INSERT INTO users (login,pass,name,lastname,group_id,cookie) VALUES($,$,$,$,$,$);', 'users', array($login,md5($pass),$name,$mail,$group_id,'')))        
             return true;
         else
             return false;        

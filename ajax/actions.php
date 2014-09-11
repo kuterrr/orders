@@ -1,4 +1,16 @@
 <?require($_SERVER["DOCUMENT_ROOT"]."/include/prolog.php");
+if ($_REQUEST["action"]=="register")
+{
+    if (!$_REQUEST["group_id"])
+        $_REQUEST["group_id"] = 2;
+    $result = userAdd($_REQUEST["login"],$_REQUEST["pass"],$_REQUEST["name"],$_REQUEST["group_id"]);
+    if ($result!==true)
+        echo implode("<br />",$result);
+    else
+    {
+        userLogin($_REQUEST["login"],$_REQUEST["pass"]);        
+    }
+}
 if ($_REQUEST["action"]=="add_order")
 {
     if (userGetGroup()!=2 || !check_sessid())

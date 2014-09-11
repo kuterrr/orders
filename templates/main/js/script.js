@@ -40,8 +40,11 @@ $(function(){
         })
     });
     
+    $(document).on("keyup","[name=price]",function(){
+        $(this).val($(this).val().replace(/[,]/g, '.'));                    
+        $(this).val($(this).val().replace(/[^\d.]/g, ''));        
+    });
     $(document).on("submit","form",function(){
-        console.log();
         var params = $(this).serialize();
         if($(this).find("[name=action]").val())
             eval($(this).find("[name=action]").val()+"('"+params+"')");
@@ -82,6 +85,23 @@ function add_order(params)
                 close_modal();
                 getUserOrders();
             }
+        }
+    });
+    return false;
+}
+function register(params)
+{
+    $.ajax({
+        url: "ajax/actions.php",
+        data : params,  
+        type : 'post',
+        beforeSend: function () {
+            // @todo: check fields
+        },
+        success : function (data) {                            
+            $("#modal .modal-content").html(data);    
+            if (!data)
+                location.reload();
         }
     });
     return false;

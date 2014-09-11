@@ -91,7 +91,7 @@ function db_query_replase($sql,$repl_arr=null)
  * @return int
  */
 function db_query ($sql, $table, $repl_arr=null)
-{
+{ 
     $handler = db_search($table);  
     $sql = db_query_replase($sql, $repl_arr);    
     if(!$res = mysql_query($sql,$handler))
@@ -175,8 +175,8 @@ function db_query_one_line($sql, $table, $repl_arr=null)
  */
 function db_query_get_value($sql, $table, $repl_arr=null)
 {
-    if(!$res=db_query($sql,$table, $repl_arr))    
-        return false;    
+    if(!$res = db_query($sql, $table, $repl_arr))    
+        return false; 
     if(mysql_num_rows($res) & mysql_num_fields($res))   
         return mysql_result($res, 0, 0);    
     return false;    
